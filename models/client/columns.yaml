@@ -1,0 +1,26 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+    fullname:
+        label: Nombre
+        searchable: true
+    description:
+        label: Descripcion
+    billing:
+        label: Facturación
+    expiration:
+        label: Vencimiento
+    registration:
+        label: Patente
+        searchable: true
+    brand:
+        label: Marca
+    model:
+        label: Modelo
+    color:
+        label: Color

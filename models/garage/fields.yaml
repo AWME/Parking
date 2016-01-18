@@ -1,0 +1,12 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: Nombre de Cochera
+        span: left
+#    color:
+#        label: Color
+#        type: colorpicker
+#        span: left

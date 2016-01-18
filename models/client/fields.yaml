@@ -1,0 +1,47 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: Nombre
+        span: auto
+    lastname:
+        label: Apellido
+        span: auto
+    fullname: 
+        label: Nombre Completo
+        cssClass: hide
+    registration:
+        label: Patente
+        span: auto
+    brand:
+        label: Marca
+        span: auto
+    model:
+        label: Modelo
+        span: auto
+    color:
+        label: Color
+        span: auto
+    billing:
+        label: Facturación
+        span: auto
+        type: dropdown
+        options:
+            Hora: Hora
+            Semanal: Semanal
+            Mensual: Mensual
+    expiration:
+        label: Vencimiento
+        type: datepicker
+        span: right
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]
+
+    description:
+        label: Nota Adicional
+        type: textarea
+        span: left

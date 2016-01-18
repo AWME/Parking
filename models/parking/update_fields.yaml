@@ -1,0 +1,49 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID 
+        cssClass: hide
+    fullname:
+        label: fullname
+        cssClass: hide
+    billing:
+        label: billing 
+        cssClass: hide
+    tiket:
+        label: Nº Tiket
+        span: left
+        placeholder: Dejar en blanco para generar un Nº Tiket automatico.
+        disabled: true
+
+    invoice_partial:
+        type: partial 
+        path: invoice
+        span: right
+
+    client:
+        label: Cliente
+        type: recordfinder
+        list: $/awme/parking/models/client/popup_columns.yaml
+        prompt: Click en el boton %s para seleccionar un Cliente
+        nameFrom: fullname
+        span: left
+
+    garage:
+        label: Cochera
+        type: recordfinder
+        list: $/awme/parking/models/garage/columns.yaml
+        prompt: Click en el boton %s para seleccionar una Cochera
+        nameFrom: name
+        descriptionFrom: description
+        span: left
+
+    checkout_partial:
+        type: partial 
+        path: checkout
+        span: right
+
+
+

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Garage
+
+# Model Form Field configuration
+form: $/awme/parking/models/garage/fields.yaml
+
+# Model Class name
+modelClass: Awme\Parking\Models\Garage
+
+# Default redirect location
+defaultRedirect: awme/parking/garages
+
+# Create page
+create:
+    title: Create Garage
+    redirect: awme/parking/garages/update/:id
+    redirectClose: awme/parking/garages
+
+# Update page
+update:
+    title: Edit Garage
+    redirect: awme/parking/garages
+    redirectClose: awme/parking/garages
+
+# Preview page
+preview:
+    title: Preview Garage

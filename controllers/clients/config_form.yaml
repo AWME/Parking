@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Client
+
+# Model Form Field configuration
+form: $/awme/parking/models/client/fields.yaml
+
+# Model Class name
+modelClass: AWME\Parking\Models\Client
+
+# Default redirect location
+defaultRedirect: awme/parking/clients
+
+# Create page
+create:
+    title: Create Client
+    redirect: awme/parking/clients/update/:id
+    redirectClose: awme/parking/clients
+
+# Update page
+update:
+    title: Edit Client
+    redirect: awme/parking/clients
+    redirectClose: awme/parking/clients
+
+# Preview page
+preview:
+    title: Preview Client

@@ -1,0 +1,11 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+#    color:
+#        label: Color
+    name:
+        label: Nombre
+#    status:
+#        label: Estado

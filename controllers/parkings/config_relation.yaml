@@ -1,0 +1,8 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+client:
+    label: Client
+    view:
+        list: $/acme/user/models/role/columns2.yaml

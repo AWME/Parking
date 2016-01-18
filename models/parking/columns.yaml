@@ -1,0 +1,26 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        invisible: true
+    tiket:
+        label: Tiket
+        searchable: true
+    fullname:
+        label: Cliente
+        searchable: true
+    billing:
+        label: Facturación
+    garage_id:
+        label: Cochera
+    checkin:
+        label: Checkin
+    checkout: 
+        label: Checkout
+    total:
+        label: Total
+    status:
+        label: Estado

@@ -1,0 +1,22 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    hours_price:
+        label: Precio por Hora
+        type: number
+        span: left
+    week_price:
+        label: Precio Semanal
+        type: number
+        span: left
+    month_price:
+        label: Precio Mensual
+        type: number
+        span: left
+    min_price:
+        label: Costo Minimo
+        commentAbove: Asigna el monto minimo a cobrar.
+        type: number
+        span: left
