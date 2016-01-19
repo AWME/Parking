@@ -30,6 +30,11 @@ fields:
         prompt: Click en el boton %s para seleccionar un Cliente
         nameFrom: fullname
         span: left
+        
+    link_client_partial:
+        type: partial
+        path: client_link
+        span: left
 
     garage:
         label: Cochera

@@ -66,6 +66,19 @@ class Calculator{
          */
         $time['decimal_time'] = number_format($time['hours']+($time['minutes']/60), 2);
 
+        $decimals = explode('.', $time['decimal_time']);
+        $decimal_hours = current($decimals);
+        $decimal_mins = end($decimals);
+
+        $time['decimal_time'] = $decimal_hours.'.'.$decimal_mins;
+
+        if($decimal_mins >= 50){
+            $time['decimal_time'] = ($decimal_hours + 1).'.00';
+        }else if($decimal_mins <= 50){
+            $time['decimal_time'] = $decimal_hours.'.50';
+        }
+
+
         return $time;
     }
 }
