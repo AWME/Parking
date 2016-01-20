@@ -45,12 +45,10 @@ class Plugin extends PluginBase
      */
     public function registerPermissions()
     {
-        return []; // Remove this line to activate
-
         return [
-            'awme.parking.some_permission' => [
+            'awme.parking.use_parking' => [
                 'tab' => 'Parking',
-                'label' => 'Some permission'
+                'label' => 'Usar el software de estacionamiento'
             ],
         ];
     }
@@ -67,7 +65,7 @@ class Plugin extends PluginBase
                 'label'       => 'Parking',
                 'url'         => Backend::url('awme/parking/clients'),
                 'icon'        => 'icon-car',
-                'permissions' => ['awme.parking.*'],
+                'permissions' => ['awme.parking.use_parking'],
                 'order'       => 500,
 
                 'sideMenu' => [
@@ -75,21 +73,21 @@ class Plugin extends PluginBase
                         'label'       => 'Parking',
                         'url'         => Backend::url('awme/parking/parkings'),
                         'icon'        => 'icon-car',
-                        'permissions' => ['awme.parking.*'],
+                        'permissions' => ['awme.parking.use_parking'],
                     ],
 
                     'clients' => [
                         'label'       => 'Clientes',
                         'url'         => Backend::url('awme/parking/clients'),
                         'icon'        => 'icon-users',
-                        'permissions' => ['awme.parking.*'],
+                        'permissions' => ['awme.parking.use_parking'],
                     ],
 
                     'garages' => [
                         'label'       => 'Cocheras',
                         'url'         => Backend::url('awme/parking/garages'),
                         'icon'        => 'icon-sitemap',
-                        'permissions' => ['awme.parking.*'],
+                        'permissions' => ['awme.parking.use_parking'],
                     ],
                 ],
             ]

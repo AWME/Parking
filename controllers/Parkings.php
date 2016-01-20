@@ -109,7 +109,7 @@ class Parkings extends Controller
         $this->asExtension('FormController')->update($recordId, $context);
 
         
-        return Flash::success('Tiempo transcurrido: '. $this->vars['time'].' ('. $time['decimal_time'].') Con un Total a abonar de: $'.$this->vars['total']);
+        return Flash::success('Tiempo transcurrido: '. $this->vars['time'].' Con un Total a abonar de: $'.$this->vars['total']);
     }
 
     public function onCheckout($recordId = null, $context = null)
