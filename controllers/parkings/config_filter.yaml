@@ -1,0 +1,10 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    status:
+        label: Ocultar Tikets Cerrados
+        type: checkbox
+        conditions: status = "Abierto"
+        default: true

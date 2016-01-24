@@ -22,4 +22,14 @@ class Garages extends Controller
 
         BackendMenu::setContext('AWME.Parking', 'parking', 'garages');
     }
+
+    public function index()
+    {
+        //
+        // Do any custom code here
+        //
+
+        // Call the ListController behavior index() method
+        $this->asExtension('ListController')->index();
+    }
 }

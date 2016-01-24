@@ -1,0 +1,10 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    status:
+        label: Ocultar Cocheras Ocupadas
+        type: checkbox
+        conditions: status = "Disponible"
+        default: true

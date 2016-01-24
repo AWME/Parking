@@ -7,5 +7,5 @@ columns:
 #        label: Color
     name:
         label: Nombre
-#    status:
-#        label: Estado
+    status:
+        label: Estado
