@@ -12,7 +12,8 @@ class Checkout{
             switch (@$Client->billing) {
                 case 'Hora':
                     $current_price = $decimal_time * Setting::get('hours_price');
-                    return number_format(($current_price < Setting::get('min_price')) ? Setting::get('min_price') : $current_price , 2);
+                    return number_format(($current_price < Setting::get('min_price')) ? Setting::get('min_price') : $current_price , 2,'.','');
+                    //number_format(1000.5, 2, '.', '');
                 break;
 
                 case 'Semanal':
