@@ -10,3 +10,9 @@ fields:
 #        label: Color
 #        type: colorpicker
 #        span: left
+    status:
+        label: Estado
+        type: dropdown
+        options:
+            Disponible: Disponible
+            No Disponible: No Disponible

@@ -4,6 +4,7 @@ use Model;
 use Request;
 use AWME\Parking\Models\Parking;
 use AWME\Parking\Models\Client;
+use AWME\Parking\Models\Garage;
 /**
  * Parking Model
  */
@@ -24,8 +25,8 @@ class Parking extends Model
             'between:2,45',
             'unique:awme_parking_parkings'
         ],
-        'client' => ['required'],
-        'garage' => ['required'],
+        'client' => ['required', 'numeric'],
+        'garage' => ['required', 'numeric'],
     ];
 
     /**
@@ -47,7 +48,9 @@ class Parking extends Model
     public $hasMany = [];
     public $belongsTo = [
         'client' => 'AWME\Parking\Models\Client',
-        'garage' => 'AWME\Parking\Models\Garage',
+        'garage' => ['AWME\Parking\Models\Garage',
+                    'scope'      => 'isActive'
+                    ],
     ];
 
     public $belongsToMany = [];
@@ -56,6 +59,17 @@ class Parking extends Model
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+
+    /**
+    * Status de cochera
+    */
+    public function beforeCreate()
+    {
+        $Garage = Garage::find($this->garage_id);
+        $Garage->status = 'No Disponible';
+        $Garage->save();
+    }
 
     /**
      * Set the Tiket Number
@@ -90,7 +104,7 @@ class Parking extends Model
      */
     public function setFullnameAttribute($value)
     {
-        $this->attributes['fullname'] = Client::find(Request::input('Parking.client'))->fullname;
+        $this->attributes['fullname'] = @Client::find(Request::input('Parking.client'))->fullname;
     }
 
     /**
@@ -99,7 +113,7 @@ class Parking extends Model
      */
     public function setBillingAttribute($value)
     {
-        $this->attributes['billing'] = Client::find(Request::input('Parking.client'))->billing;
+        $this->attributes['billing'] = @Client::find(Request::input('Parking.client'))->billing;
     }
     
 }

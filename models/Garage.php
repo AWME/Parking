@@ -47,4 +47,8 @@ class Garage extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+    public function scopeIsActive($query)
+    {
+        //return $query->where('status', 'Disponible')->orderBy('status');
+    }
 }

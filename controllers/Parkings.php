@@ -7,6 +7,7 @@ use Backend\Classes\Controller;
 
 use AWME\Parking\Models\Parking;
 use AWME\Parking\Models\Client;
+use AWME\Parking\Models\Garage;
 
 use AWME\Parking\Classes\Checkout;
 use AWME\Parking\Classes\Calculator as Calc;
@@ -152,6 +153,10 @@ class Parkings extends Controller
         $Parking->total     = $this->vars['total'];
         $Parking->save();
         
+        $Garage = Garage::find($Parking->garage_id);
+        $Garage->status = 'Disponible';
+        $Garage->save();
+
 
         $this->asExtension('FormController')->update($recordId, $context);
 
