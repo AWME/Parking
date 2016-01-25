@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('awme/parking/clients') ?>">Clients</a></li>
+        <li><a href="<?= Backend::url('awme/parking/clients') ?>">Clientes</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -22,7 +22,7 @@
                     data-hotkey="ctrl+s, cmd+s"
                     data-load-indicator="Saving Client..."
                     class="btn btn-primary">
-                    <u>S</u>ave
+                    Guardar
                 </button>
                 <button
                     type="button"
@@ -31,7 +31,7 @@
                     data-hotkey="ctrl+enter, cmd+enter"
                     data-load-indicator="Saving Client..."
                     class="btn btn-default">
-                    Save and Close
+                    Guardar y Cerrar
                 </button>
                 <button
                     type="button"
@@ -41,7 +41,7 @@
                     data-request-confirm="Do you really want to delete this client?">
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('awme/parking/clients') ?>">Cancel</a>
+                    o <a href="<?= Backend::url('awme/parking/clients') ?>">Cancelar</a>
                 </span>
             </div>
         </div>

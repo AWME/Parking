@@ -3,6 +3,6 @@
 # ===================================
 
 client:
-    label: Client
+    label: Cliente
     view:
         list: $/acme/user/models/role/columns2.yaml

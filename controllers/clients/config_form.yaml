@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: Client
+name: Cliente
 
 # Model Form Field configuration
 form: $/awme/parking/models/client/fields.yaml
@@ -16,13 +16,13 @@ defaultRedirect: awme/parking/clients
 
 # Create page
 create:
-    title: Create Client
+    title: Crear Cliente
     redirect: awme/parking/clients/update/:id
     redirectClose: awme/parking/clients
 
 # Update page
 update:
-    title: Edit Client
+    title: Crear Cliente
     redirect: awme/parking/clients
     redirectClose: awme/parking/clients
 

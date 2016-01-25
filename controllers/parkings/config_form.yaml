@@ -16,13 +16,13 @@ defaultRedirect: awme/parking/parkings
 
 # Create page
 create:
-    title: Create Parking
+    title: Crear Parking
     redirect: awme/parking/parkings/update/:id
     redirectClose: awme/parking/parkings
 
 # Update page
 update:
-    title: Edit Parking
+    title: Editar Parking
     redirect: awme/parking/parkings
     redirectClose: awme/parking/parkings
     form: $/awme/parking/models/parking/update_fields.yaml
