@@ -58,8 +58,8 @@ class Calculator{
         $time['minutes']    = str_pad( $minutes, 2, "0", STR_PAD_LEFT );
         $time['seconds']    = str_pad( $seconds, 2, "0", STR_PAD_LEFT );
          
-        $time['time']       = implode( ':', $time );
-        
+        $time['total_time']       = implode( ':', $time );
+
         /**
          * Hora decimal.
          * ej: 1.25, 2.5, 3.75

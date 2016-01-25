@@ -1,3 +1,8 @@
+<?function dateFormat($date, $format = 'd/m/y H:i:s')
+{
+    return date($format, strtotime($date));
+}
+?>
 <script>
     $(document).ready(function(){
         $("h4.thankyou").hide();
@@ -7,7 +12,7 @@
     #invoice {margin-top: 24px;}
     td.subtitle{font-size: 16px;}
     td.detail{font-size: 16px;}
-    td.total.subtitle{font-size: 30px;}
+    td.total.subtitle{font-size: 30px !important;}
     td.total.detail{font-size: 30px;}
 </style>
 <div id="invoice">
@@ -30,19 +35,17 @@
                 </tr>
                 <tr>
                     <td class="subtitle"><b>Hora de Ingreso:</b></td>
-                    <td class="detail"><span class="text-success"><?=date('d/m/y H:i:s', strtotime($checkin))?></span></td>
+                    <td class="detail"><span class="text-success"><?=dateFormat($times['start_time'])?></span></td>
                 </tr>
-                <?if($Parking->status == 'Cerrado'):?>    
                 <tr>
+                <?if($Parking->status == 'Cerrado'):?>    
                     <td class="subtitle"><b>Hora de Salida:</b></td>
-                    <td class="detail"><span class="text-danger"><?=($Parking->status) ? date('d/m/y H:i:s', strtotime($Parking->checkout)) : date('d/m/y H:i:s', strtotime($checkout))?></span></td>
-                </tr>
+                    <td class="detail"><span class="text-danger"><?=dateFormat($times['end_time'])?></span></td>
                 <?else:?>
-                    <tr>
-                        <td class="subtitle"><b>Hora Actual:</b></td>
-                        <td class="detail"><span class="text-warning"><?=date('d/m/y H:i:s', strtotime($checkout))?></span></td>
-                    </tr>
+                    <td class="subtitle"><b>Hora Actual:</b></td>
+                    <td class="detail"><span class="text-warning"><?=dateFormat($times['end_time'])?></span></td>
                 <?endif;?>
+                </tr>
                 <tr>
                     <td class="subtitle"><b>Forma de pago:</b></td>
                     <td class="detail"><span class="text-info"><?=$Client->billing?></span></td>
@@ -59,13 +62,10 @@
                 <?endif;?>
                 <tr>
                     <td class="subtitle"><b>Tiempo Transcurrido:</b></td>
-                    <td class="detail"><span class="text-info"><?=$time?></span></td>
+                    <td class="detail"><span class="text-info"><?=$times['total_time']?></span></td>
                 </tr>
-                <?if($Parking->total) $total = $Parking->total?>
-                
-                <?if($Parking->status == 'Cerrado'):?>
                 <tr>
-                    <td class="total subtitle"><b>Total:</b></td>
+                    <td class="total subtitle"><b><?=($Parking->status == 'Abierto') ? 'Subtotal:' : 'Total:';?></b></td>
                     <td class="total detail">
                         <?if($Client->expiration <= date('Y-m-d H:i:s', time())):?>
                             <span class="text-danger">$<?=$total?></span>
@@ -74,7 +74,6 @@
                         <?endif;?>
                     </td>
                 </tr>
-                <?endif;?>
             </tbody>
         </table>
         <h4 class="thankyou text-center">Playa del Sol - Av. Del Sol 725 <br>

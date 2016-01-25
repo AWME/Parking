@@ -9,6 +9,7 @@ use AWME\Parking\Models\Parking;
 use AWME\Parking\Models\Client;
 use AWME\Parking\Models\Garage;
 
+use AWME\Parking\Classes\Invoice;
 use AWME\Parking\Classes\Checkout;
 use AWME\Parking\Classes\Calculator as Calc;
 
@@ -41,131 +42,131 @@ class Parkings extends Controller
     public function update($recordId = null, $context = null)
     {
         /**
-         * $Parking
-         * $Client
-         * @var array attributes
+         * [$Invoice description]
+         * @var Invoice
+         */
+        $Invoice = new Invoice();
+        $Invoice->parkingId = $recordId;
+        
+        $times = $Invoice->getTimes();
+
+        /**
+         * $Parking & $Client
+         * Datos del parking tiket, y Cliente
+         * @var array attrs.
          */
         $Parking = Parking::find($recordId);
         $Client = Client::find($Parking->client_id);
 
         /**
-         * $start_time      # Hora de ingreso
-         * $end_time        # Hora de retiro
-         * @var timestamp
+         * $total_price
+         * monto a abonar
+         * @var int
          */
-        $start_time = $Parking->checkin;
-        $end_time   = date('Y-m-d H:i:s',time());
-        
-        /**
-         * $time
-         * @var array time, details.
-         */
-        $time = Calc::currentTime($start_time, $end_time);
+        $total_price = Checkout::total($times['decimal_time'], $Client);
 
         //Attributes to partial
-        $this->vars['checkin']  = $start_time;
-        $this->vars['checkout'] = $end_time;
-        $this->vars['time']     = $time['time'];
-        $this->vars['total']    = Checkout::total($time['decimal_time'], $Client);
-        $this->vars['Parking']  = $Parking;
-        $this->vars['Client']  = $Client;
+        $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
+        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['Parking']  = $Parking;     # Datos del tiket
+        $this->vars['Client']  = $Client;       # Datos del cliente
 
         $this->asExtension('FormController')->update($recordId, $context);
-
     }
 
     public function onRefresh($recordId = null, $context = null)
     {
         
         /**
-         * $Parking
-         * $Client
-         * @var array attributes
+         * [$Invoice description]
+         * @var Invoice
+         */
+        $Invoice = new Invoice();
+        $Invoice->parkingId = $recordId;
+        
+        $times = $Invoice->getTimes();
+
+        /**
+         * $Parking & $Client
+         * Datos del parking tiket, y Cliente
+         * @var array attrs.
          */
         $Parking = Parking::find($recordId);
         $Client = Client::find($Parking->client_id);
 
         /**
-         * $start_time      # Hora de ingreso
-         * $end_time        # Hora de retiro
-         * @var timestamp
+         * $total_price
+         * monto a abonar
+         * @var int
          */
-        $start_time = $Parking->checkin;
-        $end_time   = date('Y-m-d H:i:s',time());
-        
-        /**
-         * $time
-         * @var array time, details.
-         */
-        $time = Calc::currentTime($start_time, $end_time);
+        $total_price = Checkout::total($times['decimal_time'], $Client);
 
         //Attributes to partial
-        $this->vars['checkin']  = $start_time;
-        $this->vars['checkout'] = $end_time;
-        $this->vars['time']     = $time['time'];
-        $this->vars['total']    = Checkout::total($time['decimal_time'], $Client);
-        $this->vars['Parking']  = $Parking;
-        $this->vars['Client']  = $Client;
+        $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
+        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['Parking']  = $Parking;     # Datos del tiket
+        $this->vars['Client']  = $Client;       # Datos del cliente
 
         $this->asExtension('FormController')->update($recordId, $context);
 
         
-        return Flash::success('Tiempo transcurrido: '. $this->vars['time'].' Con un Total a abonar de: $'.$this->vars['total']);
+        return Flash::success('Tiempo transcurrido: '. $times['total_time'].' Con un Total a abonar de: $'.$total_price);
     }
 
     public function onCheckout($recordId = null, $context = null)
     {
         
         /**
-         * $Parking
-         * $Client
-         * @var array attributes
+         * [$Invoice description]
+         * @var Invoice
+         */
+        $Invoice = new Invoice();
+        $Invoice->parkingId = $recordId;
+        
+        $times = $Invoice->getTimes();
+
+        /**
+         * $Parking & $Client
+         * Datos del parking tiket, y Cliente
+         * @var array attrs.
          */
         $Parking = Parking::find($recordId);
         $Client = Client::find($Parking->client_id);
 
         /**
-         * $start_time      # Hora de ingreso
-         * $end_time        # Hora de retiro
-         * @var timestamp
+         * $total_price
+         * monto a abonar
+         * @var int
          */
-        $start_time = $Parking->checkin;
-        $end_time   = date('Y-m-d H:i:s',time());
-
-        /**
-         * $time
-         * @var array time, details.
-         */
-        $time = Calc::currentTime($start_time, $end_time);
+        $total_price = Checkout::total($times['decimal_time'], $Client);
 
         //Attributes to partial
-        $this->vars['checkin']  = $start_time;
-        $this->vars['checkout'] = $end_time;
-        $this->vars['time']     = $time['time'];
-        $this->vars['total']    = Checkout::total($time['decimal_time'], $Client);
-        $this->vars['Parking']  = $Parking;
-        $this->vars['Client']  = $Client;
-        
-
-        //CHECKOUT
-        $Parking->checkout  = $end_time;
-        $Parking->status    = 'Cerrado';
-        $Parking->total     = $this->vars['total'];
-        $Parking->save();
-        
-        $Garage = Garage::find($Parking->garage_id);
-        $Garage->status = 'Disponible';
-        $Garage->save();
-
+        $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
+        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['Parking']  = $Parking;     # Datos del tiket
+        $this->vars['Client']  = $Client;       # Datos del cliente
 
         $this->asExtension('FormController')->update($recordId, $context);
 
+        /**
+         * $Parking Checkout
+         * @var timestamp $checkout #endtime
+         * @var string    $status   # tiket cerrado
+         * @var int       $total    # total a pagar.
+         */
+        $Parking->checkout  = $times['end_time'];
+        $Parking->status    = 'Cerrado';
+        $Parking->total     = $total_price;
+        $Parking->save();
         
-        return Flash::success('Tiempo transcurrido: '. $this->vars['time'].' Con un Total a abonar de: $'.$this->vars['total']);
-    }
-
-    public function test(){
-
-        return phpinfo();
+        /**
+         * $Garage
+         * @var string    $status # Liberar cochera
+         */
+        $Garage = Garage::find($Parking->garage_id);
+        $Garage->status = 'Disponible';
+        $Garage->save();
+        
+        return Flash::success('Tiempo transcurrido: '.$times['total_time'].' Con un Total a abonar de: $'.$total_price);
     }
 }
