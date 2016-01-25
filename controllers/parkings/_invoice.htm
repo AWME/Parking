@@ -12,9 +12,10 @@
     #invoice {margin-top: 24px;}
     td.subtitle{font-size: 16px;}
     td.detail{font-size: 16px;}
-    td.total.subtitle{font-size: 30px !important;}
+    td.total.subtitle{font-size: 30px;}
     td.total.detail{font-size: 30px;}
 </style>
+
 <div id="invoice">
     <div class="control-list list-unresponsive">
         <table class="table data">
@@ -65,7 +66,7 @@
                     <td class="detail"><span class="text-info"><?=$times['total_time']?></span></td>
                 </tr>
                 <tr>
-                    <td class="total subtitle"><b><?=($Parking->status == 'Abierto') ? 'Subtotal:' : 'Total:';?></b></td>
+                    <td class="total subtitle"><b><?=($Parking->status == 'Abierto') ? 'Subtotal' : 'Total'?>:</b></td>
                     <td class="total detail">
                         <?if($Client->expiration <= date('Y-m-d H:i:s', time())):?>
                             <span class="text-danger">$<?=$total?></span>
