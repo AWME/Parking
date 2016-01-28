@@ -63,12 +63,20 @@ class Plugin extends PluginBase
         return [
             'parking' => [
                 'label'       => 'Parking',
-                'url'         => Backend::url('awme/parking/clients'),
+                'url'         => Backend::url('awme/parking/parkings'),
                 'icon'        => 'icon-car',
                 'permissions' => ['awme.parking.use_parking'],
                 'order'       => 500,
 
                 'sideMenu' => [
+
+                    'tills' => [
+                        'label'       => 'Caja',
+                        'url'         => Backend::url('awme/parking/tills'),
+                        'icon'        => 'icon-money',
+                        'permissions' => ['awme.parking.use_parking'],
+                    ],
+                    
                     'parkings' => [
                         'label'       => 'Parking',
                         'url'         => Backend::url('awme/parking/parkings'),

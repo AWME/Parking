@@ -1,0 +1,69 @@
+<?if(@$printVersion):?>
+    <style>
+        nav.layout-sidenav {display: none;}
+        .layout-cell.width-120 {display: none;}
+        #layout-mainmenu {display: none;}
+        #tool-till-menu {display: none;}
+        div.loading-indicator-container.size-input-text {display: none;}
+    </style>
+<?endif;?>
+<style>
+#summary-table td.disabled{color: #858585 !important;}
+#summary-table{margin-top: 30px; margin-left: 6%;}
+</style>
+<div id="summary-table"class="callout fade in callout-info no-icon no-subheader">
+    <div class="header">
+        <h3><?=trans("awme.parking::lang.tills.summary_till")?></h3>
+    </div>
+    <div class="content">
+        <div class="control-list list-unresponsive">
+            <table class="table data">
+                <thead>
+                    <tr>
+                        <th class="sort-desc"><a href="">Operación</a></th>
+                        <th class="sort-desc"><a href="">Monto</a></th>
+                        <th class="sort-desc"><a href="">Detalle</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr class="frozen">
+                    <td><?=trans('awme.parking::lang.tills.total_deposites')?>:</td>
+                    <td><b>+ $<?=$till->total_deposites?></b></td>
+                    <td class="disabled">Ingreso manual desde "Ingreso/Retiro"</td>
+                </tr>
+                <tr class="frozen">
+                    <td><?=trans('awme.parking::lang.tills.total_parking_sales')?>:</td>
+                    <td><b>+ $<?=$till->total_parking_sales?></b></td>
+                    <td class="disabled">Total de venta realizadas en Parking</td>
+                </tr>
+                <tr class="frozen">
+                    <td><?=trans('awme.parking::lang.tills.total_subscription')?>:</td>
+                    <td><b>+ $<?=$till->total_subscription?></b></td>
+                    <td class="disabled">Total de cobros por Abono a Clientes</td>
+                </tr >
+                <!--<tr>
+                    <td><?=trans('awme.parking::lang.tills.total_all_sales')?>:</td>
+                    <td><b>$<?=$till->total_all_sales?></b></td>
+                    <td></td>
+                </tr>-->
+                <tr class="processing">
+                    <td><?=trans('awme.parking::lang.tills.total_income')?>:</td>
+                    <td><b>= $<?=$till->total_income?></b></td>
+                    <td class="disabled">Suma total de los items anteriores</td>
+                </tr>
+                <tr class="negative">
+                    <td><?=trans('awme.parking::lang.tills.total_witdrawls')?>:</td>
+                    <td><b>- $<?=$till->total_witdrawls?></b></td>
+                    <td class="disabled">Retiro manual desde "Ingreso/Retiro"</td>
+                </tr>
+                <tr class="positive">
+                    <td><?=trans('awme.parking::lang.tills.total_in_till')?>:</td>
+                    <td><b>= $<?=$till->total_in_till?></b></td>
+                    <td class="disabled">Total de dinero en caja</td>
+                </tr>
+                    
+                </tbody>
+            </table>
+        </div>  
+    </div>
+</div>

@@ -21,7 +21,9 @@ class CreateParkingsTable extends Migration
             
             $table->timestamp('checkin');
             $table->timestamp('checkout');
-            
+
+            $table->longText('description');
+            $table->string('options');
             $table->decimal('total', 10, 2)->default(0)->nullable();
             $table->string('status');
 

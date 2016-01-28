@@ -25,6 +25,7 @@ update:
     title: Crear Cliente
     redirect: awme/parking/clients
     redirectClose: awme/parking/clients
+    form: $/awme/parking/models/client/update_fields.yaml
 
 # Preview page
 preview:

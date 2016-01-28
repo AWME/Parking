@@ -30,7 +30,7 @@ fields:
         prompt: Click en el boton %s para seleccionar un Cliente
         nameFrom: fullname
         span: left
-        
+
     link_client_partial:
         type: partial
         path: client_link
@@ -44,6 +44,21 @@ fields:
         nameFrom: name
         descriptionFrom: description
         span: left
+
+    options[discount]:
+        label: Descuento
+        span: left
+        size: tiny
+        type: dropdown
+        options:
+            percent: %
+            amount: $
+
+    options[amount]:
+        label: Monto
+        type: number
+        span: left
+        size: tiny
 
     checkout_partial:
         type: partial 

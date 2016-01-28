@@ -14,6 +14,11 @@
     td.detail{font-size: 16px;}
     td.total.subtitle{font-size: 30px;}
     td.total.detail{font-size: 30px;}
+
+    <?if($Client->billing != 'Hora'):?>
+        #Form-field-Parking-options-discount-group{display:none;}
+        #Form-field-Parking-options-amount-group{display:none;}
+    <?endif;?>
 </style>
 
 <div id="invoice">
@@ -65,16 +70,20 @@
                     <td class="subtitle"><b>Tiempo Transcurrido:</b></td>
                     <td class="detail"><span class="text-info"><?=$times['total_time']?></span></td>
                 </tr>
-                <tr>
-                    <td class="total subtitle"><b><?=($Parking->status == 'Abierto') ? 'Subtotal' : 'Total'?>:</b></td>
-                    <td class="total detail">
-                        <?if($Client->expiration <= date('Y-m-d H:i:s', time())):?>
+                <?if($Client->billing == 'Hora'):?>
+                    <?if($amount):?>
+                        <tr>
+                            <td class="subtitle"><b>Descuento:</b></td>
+                            <td class="detail"><?=($discount == 'percent') ? '%':'$'?> <?=$amount?></td>
+                        </tr>
+                    <?endif;?>
+                    <tr>
+                        <td class="total subtitle"><b><?=($Parking->status == 'Abierto') ? 'Subtotal' : 'Total'?>:</b></td>
+                        <td class="total detail">
                             <span class="text-danger">$<?=$total?></span>
-                        <?else:?>
-                            <span class="text-muted">$<?=$total?> <small>Pagado</small></span>
-                        <?endif;?>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                <?endif;?>
             </tbody>
         </table>
         <h4 class="thankyou text-center">Playa del Sol - Av. Del Sol 725 <br>

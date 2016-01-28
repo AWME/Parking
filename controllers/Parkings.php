@@ -3,13 +3,17 @@
 use Flash;
 use Request;
 use BackendMenu;
+use ValidationException;
+use BackendAuth;
 use Backend\Classes\Controller;
 
 use AWME\Parking\Models\Parking;
 use AWME\Parking\Models\Client;
 use AWME\Parking\Models\Garage;
+use AWME\Parking\Models\Till;
 
 use AWME\Parking\Classes\Invoice;
+use AWME\Parking\Classes\CashRegister;
 use AWME\Parking\Classes\Checkout;
 use AWME\Parking\Classes\Calculator as Calc;
 
@@ -67,7 +71,9 @@ class Parkings extends Controller
 
         //Attributes to partial
         $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
-        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['discount'] = $Parking->options['discount'];
+        $this->vars['amount']   = $Parking->options['amount'];
+        $this->vars['total']    = Calc::discount($total_price,$Parking->options['discount'],$Parking->options['amount']); # Monto a abonar
         $this->vars['Parking']  = $Parking;     # Datos del tiket
         $this->vars['Client']  = $Client;       # Datos del cliente
 
@@ -103,7 +109,9 @@ class Parkings extends Controller
 
         //Attributes to partial
         $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
-        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['discount'] = $Parking->options['discount'];
+        $this->vars['amount']   = $Parking->options['amount'];
+        $this->vars['total']    = Calc::discount($total_price,$Parking->options['discount'],$Parking->options['amount']); # Monto a abonar
         $this->vars['Parking']  = $Parking;     # Datos del tiket
         $this->vars['Client']  = $Client;       # Datos del cliente
 
@@ -115,7 +123,17 @@ class Parkings extends Controller
 
     public function onCheckout($recordId = null, $context = null)
     {
-        
+        /**
+         * Validar si la caja esta abierta,
+         * antes de crear una venta.
+         * @return [type] [description]
+         */
+        if (!CashRegister::is_open()) {
+            throw new ValidationException([
+               'please_opening_cash_register' => trans('awme.parking::lang.sales.please_opening_cash_register')
+            ]);
+        }
+
         /**
          * [$Invoice description]
          * @var Invoice
@@ -132,7 +150,7 @@ class Parkings extends Controller
          */
         $Parking = Parking::find($recordId);
         $Client = Client::find($Parking->client_id);
-
+        
         /**
          * $total_price
          * monto a abonar
@@ -140,9 +158,11 @@ class Parkings extends Controller
          */
         $total_price = Checkout::total($times['decimal_time'], $Client);
 
-        //Attributes to partial
+        ///Attributes to partial
         $this->vars['times']  = $times;         # Tiempos (start_time, end_time, total_time, decimal_time)
-        $this->vars['total']    = $total_price; # Monto a abonar
+        $this->vars['discount'] = $Parking->options['discount'];
+        $this->vars['amount']   = $Parking->options['amount'];
+        $this->vars['total']    = Calc::discount($total_price,$Parking->options['discount'],$Parking->options['amount']); # Monto a abonar
         $this->vars['Parking']  = $Parking;     # Datos del tiket
         $this->vars['Client']  = $Client;       # Datos del cliente
 
@@ -159,6 +179,20 @@ class Parkings extends Controller
         $Parking->total     = $total_price;
         $Parking->save();
         
+        /**
+         * $Till
+         * Nuevo tiket en caja.
+         * @var Till
+         */
+        $Till = new Till;
+        $Till->action = 'sale';
+        $Till->seller = BackendAuth::getUser()->first_name;
+        $Till->tiket = $Parking->tiket;
+        $Till->billing = $Parking->billing;
+        $Till->subtotal = $total_price;
+        $Till->total = ($Parking->billing == 'Hora') ? $this->vars['total'] : 0;
+        $Till->save();
+
         /**
          * $Garage
          * @var string    $status # Liberar cochera

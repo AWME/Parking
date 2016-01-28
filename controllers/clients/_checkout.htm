@@ -1,0 +1,38 @@
+<div id="checkout">
+  <script>
+      function printThis(){
+          $("h4.thankyou").show();
+
+          $("#invoice").printThis({
+                debug: false,              // show the iframe for debugging
+                //importCSS: true,           // import page CSS
+                //printContainer: true,      // grab outer container as well as the contents of the selector
+                //loadCSS: "path/to/my.css", // path to additional css file
+                pageTitle: "<?=$Client->fullname?> - Playa del sol",             // add title to print page
+                removeInline: true        // remove all inline styles from print elements
+          });
+
+      }
+  </script>
+  <button
+      type="button"
+      data-request="onCheckout"
+      data-request-confirm="¿Desea realizar el Checkout? - Esta acción ingresará el pago correspondiente en el reporte de caja"
+      data-request-update="'invoice': '#invoice', 'checkout' : '#checkout'"
+      
+      data-hotkey="ctrl+e"
+      class="btn btn-success oc-icon-money invoice-checkout"
+      <?=($Client->expiration > date('Y-m-d H:i:s', time())) ? 'disabled' : '';?>
+      >
+      Checkout
+  </button>
+
+  <button
+      type="button"
+      onClick="printThis();"
+      class="btn btn-info oc-icon-print invoice-refresh"
+      <?=($Client->expiration < date('Y-m-d H:i:s', time())) ? 'disabled' : '';?>
+      >
+      Imprimir
+  </button>
+</div>

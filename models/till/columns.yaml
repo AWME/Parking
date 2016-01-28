@@ -1,0 +1,27 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    created_at:
+        label: Fecha y Hora
+        
+    tiket:
+        label: Tiket
+        searchable: true
+
+    action:
+        label: Operación
+
+    description:
+        label: Descripcion
+
+    billing:
+        label: Facturación
+
+    subtotal:
+        label: Subtotal
+
+    total:
+        label: Total
+    

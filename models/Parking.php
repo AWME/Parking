@@ -2,6 +2,10 @@
 
 use Model;
 use Request;
+use ValidationException;
+
+use AWME\Parking\Classes\CashRegister;
+
 use AWME\Parking\Models\Parking;
 use AWME\Parking\Models\Client;
 use AWME\Parking\Models\Garage;
@@ -28,6 +32,10 @@ class Parking extends Model
         'client' => ['required', 'numeric'],
         'garage' => ['required', 'numeric'],
     ];
+    /**
+     * @var array List of attributes to purge.
+     */
+    protected $purgeable = ['discount','amount'];
 
     /**
      * @var array Guarded fields
@@ -39,7 +47,7 @@ class Parking extends Model
      */
     protected $fillable = [];
 
-    protected $jsonable = ['client_data'];
+    protected $jsonable = ['client_data','options'];
 
     /**
      * @var array Relations
@@ -66,9 +74,33 @@ class Parking extends Model
     */
     public function beforeCreate()
     {
+        /**
+         * Validar si la caja esta abierta,
+         * antes de crear una venta.
+         * @return [type] [description]
+         */
+        if (!CashRegister::is_open()) {
+            throw new ValidationException([
+               'please_opening_cash_register' => trans('awme.parking::lang.sales.please_opening_cash_register')
+            ]);
+        }
+    }
+
+    public function afterCreate()
+    {
+        /**
+         * $Garage - Status
+         * @var string # Cambiar el estado de la cochera.
+         */
         $Garage = Garage::find($this->garage_id);
         $Garage->status = 'No Disponible';
         $Garage->save();
+
+        if(!$this->options['discount'] || !$this->options['amount']){
+            $this->options = ['discount' => 'percent',
+                                'amount' => 0];
+            $this->save();
+        }
     }
 
     /**

@@ -36,4 +36,25 @@ class Invoice{
                         'decimal_time'  => $currents['decimal_time'],
                      ];
     }
+
+    public function getPrice($billing)
+    {
+        switch ($billing) {
+            case 'Hora':
+                return number_format(Setting::get('hours_price'), 2);
+            break;
+
+            case 'Semanal':
+                return number_format(Setting::get('week_price'), 2);
+            break;
+            
+            case 'Mensual':
+                return number_format(Setting::get('month_price'), 2);
+            break;
+            
+            default:
+                return '0.00';
+            break;
+        }
+    }
 }

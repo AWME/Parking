@@ -27,6 +27,27 @@ class Calculator{
 
         return ($a * $b)/100;
     }
+
+    public static function discount($cost,$discount,$amount)
+    {  
+        switch ($discount) {
+            case 'percent':
+                $total = self::resta([$cost],[self::percent($cost,$amount)]);
+            break;
+
+            case 'amount':
+                $total = self::resta([$cost],[$amount]);
+            break;
+            
+            default:
+                $total = $amount;
+            break;
+
+        }
+
+        if($total <= 0) $total = 0;
+        return $total;
+    }
     /**
      * Multiply
      */

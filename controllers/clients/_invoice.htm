@@ -1,0 +1,66 @@
+<?function dateFormat($date, $format = 'd/m/y H:i:s')
+{
+    return date($format, strtotime($date));
+}
+?>
+<script>
+    $(document).ready(function(){
+        $("h4.thankyou").hide();
+    });
+</script>
+<style>
+    #invoice {margin-top: 24px;}
+    td.subtitle{font-size: 16px;}
+    td.detail{font-size: 16px;}
+    td.total.subtitle{font-size: 30px;}
+    td.total.detail{font-size: 30px;}
+</style>
+
+<div id="invoice">
+    <div class="control-list list-unresponsive">
+        <table class="table data">
+            <thead>
+                <tr>
+                    <th class="sort-desc"><a href="">Detalle</a></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="subtitle"><b>Cliente:</b></td>
+                    <td class="detail"><span class="text-info"><?=$Client->fullname.' ('.$Client->registration.')';?></span></td>
+                </tr>
+                <tr>
+                    <td class="subtitle"><b>Hora Actual:</b></td>
+                    <td class="detail"><span class="text-warning"><?=dateFormat(date('Y-m-d H:i:s', time()))?></span></td>
+                </tr>
+                <tr>
+                    <td class="subtitle"><b>Forma de pago:</b></td>
+                    <td class="detail"><span class="text-info"><?=$Client->billing?></span></td>
+                </tr>
+                <tr>
+                    <td class="subtitle"><b>Vencimiento:</b></td>
+                    <td class="detail">
+                        <span class="text-<?=($Client->expiration <= date('Y-m-d H:i:s', time())) ? 'danger':'success';?>">
+                            <?=($Client->expiration <= date('Y-m-d H:i:s', time())) ? '<i class="icon-info-circle"></i>':'<i class="icon-check-circle"></i>';?> <?=date('d/m/y H:i:s', ($Client->expiration) ? strtotime($Client->expiration) : time())?>
+                        </span>
+                    </td>
+                </tr>
+                <?if($amount):?>
+                        <tr>
+                            <td class="subtitle"><b>Descuento:</b></td>
+                            <td class="detail"><?=($discount == 'percent') ? '%':'$'?> <?=$amount?></td>
+                        </tr>
+                <?endif;?>
+                <tr>
+                    <td class="total subtitle"><b>Total:</b></td>
+                    <td class="total detail">
+                        <span class="text-danger">$<?=$total?></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 class="thankyou text-center">Playa del Sol - Av. Del Sol 725 <br>
+       Gracias por su Visita</h4>
+    </div>
+</div>

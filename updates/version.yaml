@@ -3,3 +3,4 @@
     - create_clients_table.php
     - create_garages_table.php
     - create_parkings_table.php
+    - create_tills_table.php

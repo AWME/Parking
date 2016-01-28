@@ -15,15 +15,6 @@ fields:
     registration:
         label: Patente
         span: auto
-    brand:
-        label: Marca
-        span: auto
-    model:
-        label: Modelo
-        span: auto
-    color:
-        label: Color
-        span: auto
     billing:
         label: Facturación
         span: auto
@@ -32,16 +23,18 @@ fields:
             Hora: Hora
             Semanal: Semanal
             Mensual: Mensual
-    expiration:
-        label: Vencimiento
-        type: datepicker
-        span: right
-        trigger:
-            action: hide
-            field: billing
-            condition: value[Hora]
+    brand:
+        label: Marca
+        span: left
+    model:
+        label: Modelo
+        span: left
+    color:
+        label: Color
+        span: left
 
     description:
         label: Nota Adicional
         type: textarea
         span: left
+        size: small

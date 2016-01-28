@@ -1,0 +1,94 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: Nombre
+        span: auto
+    lastname:
+        label: Apellido
+        span: auto
+    fullname: 
+        label: Nombre Completo
+        cssClass: hide
+    registration:
+        label: Patente
+        span: auto
+    billing:
+        label: Facturación
+        span: auto
+        type: dropdown
+        options:
+            Hora: Hora
+            Semanal: Semanal
+            Mensual: Mensual
+
+    brand:
+        label: Marca
+        span: auto
+
+    expiration:
+        label: Vencimiento
+        type: datepicker
+        span: right
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]
+
+    model:
+        label: Modelo
+        span: auto
+
+    options[discount]:
+        label: Descuento
+        span: auto
+        size: tiny
+        type: dropdown
+        options:
+            percent: %
+            amount: $
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]
+
+    color:
+        label: Color
+        span: auto
+
+    options[amount]:
+        label: Monto
+        type: number
+        span: auto
+        size: large
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]
+
+    billing_partial:
+        type: partial
+        path: invoice
+        span: right
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]
+
+
+    description:
+        label: Nota Adicional
+        type: textarea
+        span: left
+        size: small
+
+    checkout_partial:
+        type: partial 
+        path: checkout
+        span: right
+        trigger:
+            action: hide
+            field: billing
+            condition: value[Hora]

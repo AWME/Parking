@@ -41,6 +41,7 @@ class Client extends Model
      * @var array Fillable fields
      */
     protected $fillable = [];
+    protected $jsonable = ['options'];
 
     /**
      * @var array Relations
@@ -55,6 +56,15 @@ class Client extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+    public function afterCreate()
+    {
+        if(!$this->options['discount'] || !$this->options['amount']){
+            
+            $this->options = ['discount' => 'percent',
+                                'amount' => 0];
+            $this->save();
+        }
+    }
     /**
      * Set the Tiket Number
      *

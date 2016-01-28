@@ -1,0 +1,28 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    action:
+        label: awme.parking::lang.tills.deposit_withdrawl
+        type: dropdown
+        span: left
+        options: 
+            deposit: awme.parking::lang.tills.deposit
+            withdrawal: awme.parking::lang.tills.withdrawal
+    seller:
+        type: text
+        cssClass: hidden
+
+    total:
+        label: awme.parking::lang.sales.cash
+        type: number
+        required: true
+        span: left
+
+    description:
+            label: awme.parking::lang.invoice.description
+            type: textarea
+            span: left
+            required: true

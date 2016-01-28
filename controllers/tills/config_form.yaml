@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Till
+
+# Model Form Field configuration
+form: $/awme/parking/models/till/fields.yaml
+
+# Model Class name
+modelClass: Awme\Parking\Models\Till
+
+# Default redirect location
+defaultRedirect: awme/parking/tills
+
+# Create page
+create:
+    title: Create Till
+    redirect: awme/parking/tills/update/:id
+    redirectClose: awme/parking/tills
+
+# Update page
+update:
+    title: Edit Till
+    redirect: awme/parking/tills
+    redirectClose: awme/parking/tills
+
+# Preview page
+preview:
+    title: Preview Till

@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
 
             $table->string('billing')->nullable();
             $table->timestamp('expiration')->nullable();
-            
+            $table->string('options');
             $table->longText('description')->nullable();
             
             $table->timestamps();
