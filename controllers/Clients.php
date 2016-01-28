@@ -100,7 +100,6 @@ class Clients extends Controller
         $Client->expiration = Request::input('Client.expiration');
         $Client->options = Request::input('Client.options');
         $Client->save();
-        Flash::success('Se ha modificado la fecha de vencimiento de pago con éxito a '.Request::input('Client.expiration'));
         /**
          * $Till
          * Nuevo tiket en caja.
@@ -111,9 +110,10 @@ class Clients extends Controller
         $Till->seller = BackendAuth::getUser()->first_name;
         $Till->billing = $Client->billing;
         $Till->subtotal = $Invoice->getPrice($Client->billing);
-        $Till->total = $this->vars['total'];
+        $Till->total = Calc::discount($Invoice->getPrice($Client->billing),$Client->options['discount'],$Client->options['amount']); # Monto a abonar
         $Till->save();
         
+        Flash::success('Se ha modificado la fecha de vencimiento de pago con éxito a '.Request::input('Client.expiration'));
 
         $this->asExtension('FormController')->update($recordId, $context);
     }

@@ -5,7 +5,7 @@
 columns:
     created_at:
         label: Fecha y Hora
-        
+        searchable: true
     tiket:
         label: Tiket
         searchable: true
