@@ -36,6 +36,10 @@
                     <td class="detail"><span class="text-info"><?=$Parking->tiket?></span></td>
                 </tr>
                 <tr>
+                    <td class="subtitle"><b>Parking:</b></td>
+                    <td class="detail"><span class="text-info"><?=$Parking->inGarage()->name?></span></td>
+                </tr>
+                <tr>
                     <td class="subtitle"><b>Estado de Tiket:</b></td>
                     <td class="detail"><span class="text-<?=($Parking->status != 'Cerrado') ? 'success' : 'warning';?>"><?=$Parking->status?></span></td>
                 </tr>

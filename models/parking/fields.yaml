@@ -42,3 +42,9 @@ fields:
         nameFrom: name
         descriptionFrom: description
         span: left
+        
+    description:
+        label: Descripción
+        type: textarea
+        size: large
+        span: left

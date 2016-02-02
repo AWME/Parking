@@ -68,6 +68,10 @@ class Parking extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+    public function inGarage(){
+
+        return Garage::find($this->garage_id);
+    }
 
     /**
     * Status de cochera

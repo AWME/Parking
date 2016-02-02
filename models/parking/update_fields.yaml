@@ -60,6 +60,12 @@ fields:
         span: left
         size: tiny
 
+    description:
+        label: Descripción
+        type: textarea
+        size: large
+        span: left
+
     checkout_partial:
         type: partial 
         path: checkout
